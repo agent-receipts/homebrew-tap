@@ -11,7 +11,7 @@ class McpProxy < Formula
   on_macos do
     if Hardware::CPU.intel?
       url "https://github.com/agent-receipts/ar/releases/download/mcp-proxy%2Fv0.6.1/mcp-proxy_0.6.1_darwin_amd64.tar.gz"
-      sha256 "5c60cc68835b0a9c881f58b57af89a6a271882d4d1f698e5041bd68b7dd57778"
+      sha256 "3d1ce3819102e6eee037f6d36297d58a01508b914781b4f140ec1cff9169f7a0"
 
       define_method(:install) do
         bin.install "mcp-proxy"
@@ -19,7 +19,7 @@ class McpProxy < Formula
     end
     if Hardware::CPU.arm?
       url "https://github.com/agent-receipts/ar/releases/download/mcp-proxy%2Fv0.6.1/mcp-proxy_0.6.1_darwin_arm64.tar.gz"
-      sha256 "5d9757dba8e7e9d0231e848ea38cffcc6f2f04d0a28b16c9859c2c7313ad2b52"
+      sha256 "0ad12d51f92bc11790a5f3bb2f0aac7dbb4c6a8cdac2360f1e87d6536dab6b83"
 
       define_method(:install) do
         bin.install "mcp-proxy"
@@ -30,14 +30,14 @@ class McpProxy < Formula
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
       url "https://github.com/agent-receipts/ar/releases/download/mcp-proxy%2Fv0.6.1/mcp-proxy_0.6.1_linux_amd64.tar.gz"
-      sha256 "88af5551ac4940feab79b01a3266a37c0eb3a07efabda5600738f2643c3da72f"
+      sha256 "12bde619fc71fa341074d772b76e03068ed5ba2ce6e39da1c1d29850f350cf7d"
       define_method(:install) do
         bin.install "mcp-proxy"
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
       url "https://github.com/agent-receipts/ar/releases/download/mcp-proxy%2Fv0.6.1/mcp-proxy_0.6.1_linux_arm64.tar.gz"
-      sha256 "ba801d36aedf74ffb905c1a3eda9603472a64d62cedfd20ad8d19a712a6b5460"
+      sha256 "9fa5380dca137654cd481ce7e453402e30bc7db370483552f5d5759cb6ec7191"
       define_method(:install) do
         bin.install "mcp-proxy"
       end

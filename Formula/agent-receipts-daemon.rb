@@ -48,6 +48,26 @@ class AgentReceiptsDaemon < Formula
     end
   end
 
+  service do
+    run opt_bin/"agent-receipts-daemon"
+    keep_alive true
+    log_path var/"log/agent-receipts-daemon.log"
+    error_log_path var/"log/agent-receipts-daemon.log"
+    working_dir var
+  end
+
+  caveats <<~EOS
+    Before starting the service for the first time, generate your signing key:
+      agent-receipts-daemon --init
+
+    Then start the daemon:
+      brew services start agent-receipts/tap/agent-receipts-daemon
+
+    Receipts database: ~/.local/share/agent-receipts/receipts.db
+    Signing key:       ~/.local/share/agent-receipts/signing.key
+    Socket:            $TMPDIR/agentreceipts/events.sock
+  EOS
+
   livecheck do
     url "https://github.com/agent-receipts/ar"
     strategy :github_releases

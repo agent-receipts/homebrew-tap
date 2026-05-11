@@ -48,9 +48,13 @@ class AgentReceiptsDaemon < Formula
     end
   end
 
+  def post_install
+    (var/"log").mkpath
+  end
+
   service do
     run opt_bin/"agent-receipts-daemon"
-    keep_alive true
+    keep_alive crashed: true
     log_path var/"log/agent-receipts-daemon.log"
     error_log_path var/"log/agent-receipts-daemon.log"
     working_dir var
@@ -65,7 +69,8 @@ class AgentReceiptsDaemon < Formula
 
     Receipts database: ~/.local/share/agent-receipts/receipts.db
     Signing key:       ~/.local/share/agent-receipts/signing.key
-    Socket:            $TMPDIR/agentreceipts/events.sock
+    Socket (macOS):    $TMPDIR/agentreceipts/events.sock
+    Socket (Linux):    $XDG_RUNTIME_DIR/agentreceipts/events.sock
   EOS
 
   livecheck do

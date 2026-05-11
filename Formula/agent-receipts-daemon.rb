@@ -11,7 +11,7 @@ class AgentReceiptsDaemon < Formula
   on_macos do
     if Hardware::CPU.intel?
       url "https://github.com/agent-receipts/ar/releases/download/daemon%2Fv0.8.0/daemon_0.8.0_darwin_amd64.tar.gz"
-      sha256 "44f5ec47e3b259ab16ba8a77c29d26841626be5883c502324e99f0637d39a09f"
+      sha256 "a7731889ac5b44743fa3aed68b6f88d35bffb995f58331ba5f62f946a9035797"
 
       define_method(:install) do
         bin.install "agent-receipts-daemon"
@@ -20,7 +20,7 @@ class AgentReceiptsDaemon < Formula
     end
     if Hardware::CPU.arm?
       url "https://github.com/agent-receipts/ar/releases/download/daemon%2Fv0.8.0/daemon_0.8.0_darwin_arm64.tar.gz"
-      sha256 "c2532317a13f483497371bce795f5f26e2975a4ebe1c7d90b8d55800fe0daa6d"
+      sha256 "85c3575d16f370135cd269b764fd5c63def4e631b398211d9d88d8d86e142219"
 
       define_method(:install) do
         bin.install "agent-receipts-daemon"
@@ -32,7 +32,7 @@ class AgentReceiptsDaemon < Formula
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
       url "https://github.com/agent-receipts/ar/releases/download/daemon%2Fv0.8.0/daemon_0.8.0_linux_amd64.tar.gz"
-      sha256 "d5d6f9968b09c72bb276b3b9bfd9b116e6e2246fc687f8fa8a0585cb2f2a0e48"
+      sha256 "7d8909f8869accc9386ba73278d11c7af788ae24b40a2f7ed5149b2ca0f71468"
       define_method(:install) do
         bin.install "agent-receipts-daemon"
         bin.install "agent-receipts"
@@ -40,7 +40,7 @@ class AgentReceiptsDaemon < Formula
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
       url "https://github.com/agent-receipts/ar/releases/download/daemon%2Fv0.8.0/daemon_0.8.0_linux_arm64.tar.gz"
-      sha256 "0249fe9d2b55f531d120163d0d4ed77f397bb7f9fc98fff0ca3e195f3f1009ba"
+      sha256 "46bc3fa82a644c4f3a4b1f720f1ecca3a7e815862770263ecb747ea4f2530702"
       define_method(:install) do
         bin.install "agent-receipts-daemon"
         bin.install "agent-receipts"

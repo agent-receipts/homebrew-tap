@@ -5,49 +5,45 @@
 class AgentReceiptsDaemon < Formula
   desc "Agent Receipts daemon and companion verify CLI"
   homepage "https://github.com/agent-receipts/ar/tree/main/daemon"
-  version "0.8.1"
+  version "0.9.0"
   license "Apache-2.0"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/agent-receipts/ar/releases/download/daemon%2Fv0.8.1/daemon_0.8.1_darwin_amd64.tar.gz"
-      sha256 "5303992a8925d62575108b5919d2e14a07cbd0202c01fa02746862ef2a65ff2f"
+      url "https://github.com/agent-receipts/ar/releases/download/daemon%2Fv0.9.0/daemon_0.9.0_darwin_amd64.tar.gz"
+      sha256 "48458114126d6e192c79e8c464cdf4ed05beecbb14e1065558103e8a46c87b63"
 
       define_method(:install) do
         bin.install "agent-receipts-daemon"
         bin.install "agent-receipts"
-        bin.install "agent-receipts-hook"
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/agent-receipts/ar/releases/download/daemon%2Fv0.8.1/daemon_0.8.1_darwin_arm64.tar.gz"
-      sha256 "36ad52c067bc3286d49ebb46855d8e2aab4b77fec67247096242277369598a48"
+      url "https://github.com/agent-receipts/ar/releases/download/daemon%2Fv0.9.0/daemon_0.9.0_darwin_arm64.tar.gz"
+      sha256 "4a7c09667f0ae1c94bd55ff073f1f569ee1012c58b06c0ec51889d883beb61a1"
 
       define_method(:install) do
         bin.install "agent-receipts-daemon"
         bin.install "agent-receipts"
-        bin.install "agent-receipts-hook"
       end
     end
   end
 
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://github.com/agent-receipts/ar/releases/download/daemon%2Fv0.8.1/daemon_0.8.1_linux_amd64.tar.gz"
-      sha256 "a96d22e1beb8675e5ecca81f11fae67f8777a3055fe7cc097ee4afc95869914b"
+      url "https://github.com/agent-receipts/ar/releases/download/daemon%2Fv0.9.0/daemon_0.9.0_linux_amd64.tar.gz"
+      sha256 "05e3c2a13131268622325fc36d8dea569fef78118d765f6cf6b5c6bfcfd8535e"
       define_method(:install) do
         bin.install "agent-receipts-daemon"
         bin.install "agent-receipts"
-        bin.install "agent-receipts-hook"
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/agent-receipts/ar/releases/download/daemon%2Fv0.8.1/daemon_0.8.1_linux_arm64.tar.gz"
-      sha256 "85e1b5ee52c5fab22494424439a158f384a2a2f255c33c9834cd2e6939f038cf"
+      url "https://github.com/agent-receipts/ar/releases/download/daemon%2Fv0.9.0/daemon_0.9.0_linux_arm64.tar.gz"
+      sha256 "5f076e91b36c648938ff26b629a7ddb4f2da401e5450575cbf7aa4390e6824dc"
       define_method(:install) do
         bin.install "agent-receipts-daemon"
         bin.install "agent-receipts"
-        bin.install "agent-receipts-hook"
       end
     end
   end
@@ -65,6 +61,10 @@ class AgentReceiptsDaemon < Formula
 
   def caveats
     <<~EOS
+      agent-receipts-hook is now a separate formula. If you previously installed
+      it via this formula, run:
+        brew install agent-receipts/tap/agent-receipts-hook
+
       Before starting the service for the first time, generate your signing key:
         agent-receipts-daemon --init
 
@@ -97,6 +97,5 @@ class AgentReceiptsDaemon < Formula
   test do
     system "#{bin}/agent-receipts-daemon", "--version"
     system "#{bin}/agent-receipts", "--help"
-    system "#{bin}/agent-receipts-hook"
   end
 end

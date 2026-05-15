@@ -49,15 +49,14 @@ class AgentReceiptsDaemon < Formula
   end
 
   def post_install
-    (var/"log").mkpath
+    (var/"log/agent-receipts").mkpath
   end
 
   service do
     run opt_bin/"agent-receipts-daemon"
     keep_alive crashed: true
-    log_path var/"log/agent-receipts-daemon.log"
-    error_log_path var/"log/agent-receipts-daemon.log"
-    working_dir var
+    log_path var/"log/agent-receipts/daemon.log"
+    error_log_path var/"log/agent-receipts/daemon.log"
   end
 
   caveats <<~EOS
@@ -70,7 +69,8 @@ class AgentReceiptsDaemon < Formula
     Receipts database: ~/.local/share/agent-receipts/receipts.db
     Signing key:       ~/.local/share/agent-receipts/signing.key
     Socket (macOS):    $TMPDIR/agentreceipts/events.sock
-    Socket (Linux):    $XDG_RUNTIME_DIR/agentreceipts/events.sock
+    Daemon logs:       #{var}/log/agent-receipts/daemon.log
+                       (stdout + stderr, written by launchd when started via `brew services`)
   EOS
 
   livecheck do

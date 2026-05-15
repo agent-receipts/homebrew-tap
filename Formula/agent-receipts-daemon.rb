@@ -59,19 +59,21 @@ class AgentReceiptsDaemon < Formula
     error_log_path var/"log/agent-receipts/daemon.log"
   end
 
-  caveats <<~EOS
-    Before starting the service for the first time, generate your signing key:
-      agent-receipts-daemon --init
+  def caveats
+    <<~EOS
+      Before starting the service for the first time, generate your signing key:
+        agent-receipts-daemon --init
 
-    Then start the daemon:
-      brew services start agent-receipts/tap/agent-receipts-daemon
+      Then start the daemon:
+        brew services start agent-receipts/tap/agent-receipts-daemon
 
-    Receipts database: ~/.local/share/agent-receipts/receipts.db
-    Signing key:       ~/.local/share/agent-receipts/signing.key
-    Socket (macOS):    $TMPDIR/agentreceipts/events.sock
-    Daemon logs:       #{var}/log/agent-receipts/daemon.log
-                       (stdout + stderr, written by launchd when started via `brew services`)
-  EOS
+      Receipts database: ~/.local/share/agent-receipts/receipts.db
+      Signing key:       ~/.local/share/agent-receipts/signing.key
+      Socket (macOS):    $TMPDIR/agentreceipts/events.sock
+      Daemon logs:       #{var}/log/agent-receipts/daemon.log
+                         (stdout + stderr, written by launchd when started via `brew services`)
+    EOS
+  end
 
   livecheck do
     url "https://github.com/agent-receipts/ar"

@@ -62,7 +62,7 @@ class AgentReceiptsDaemon < Formula
   def caveats
     <<~EOS
       Before starting the service for the first time, generate your signing key:
-        agent-receipts-daemon --init
+        #{opt_bin}/agent-receipts-daemon --init
 
       Then start the daemon:
         brew services start agent-receipts/tap/agent-receipts-daemon

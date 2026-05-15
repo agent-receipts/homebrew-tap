@@ -5,45 +5,49 @@
 class AgentReceiptsDaemon < Formula
   desc "Agent Receipts daemon and companion verify CLI"
   homepage "https://github.com/agent-receipts/ar/tree/main/daemon"
-  version "0.8.0"
+  version "0.8.1"
   license "Apache-2.0"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/agent-receipts/ar/releases/download/daemon%2Fv0.8.0/daemon_0.8.0_darwin_amd64.tar.gz"
-      sha256 "a7731889ac5b44743fa3aed68b6f88d35bffb995f58331ba5f62f946a9035797"
+      url "https://github.com/agent-receipts/ar/releases/download/daemon%2Fv0.8.1/daemon_0.8.1_darwin_amd64.tar.gz"
+      sha256 "5303992a8925d62575108b5919d2e14a07cbd0202c01fa02746862ef2a65ff2f"
 
       define_method(:install) do
         bin.install "agent-receipts-daemon"
         bin.install "agent-receipts"
+        bin.install "agent-receipts-hook"
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/agent-receipts/ar/releases/download/daemon%2Fv0.8.0/daemon_0.8.0_darwin_arm64.tar.gz"
-      sha256 "85c3575d16f370135cd269b764fd5c63def4e631b398211d9d88d8d86e142219"
+      url "https://github.com/agent-receipts/ar/releases/download/daemon%2Fv0.8.1/daemon_0.8.1_darwin_arm64.tar.gz"
+      sha256 "36ad52c067bc3286d49ebb46855d8e2aab4b77fec67247096242277369598a48"
 
       define_method(:install) do
         bin.install "agent-receipts-daemon"
         bin.install "agent-receipts"
+        bin.install "agent-receipts-hook"
       end
     end
   end
 
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://github.com/agent-receipts/ar/releases/download/daemon%2Fv0.8.0/daemon_0.8.0_linux_amd64.tar.gz"
-      sha256 "7d8909f8869accc9386ba73278d11c7af788ae24b40a2f7ed5149b2ca0f71468"
+      url "https://github.com/agent-receipts/ar/releases/download/daemon%2Fv0.8.1/daemon_0.8.1_linux_amd64.tar.gz"
+      sha256 "a96d22e1beb8675e5ecca81f11fae67f8777a3055fe7cc097ee4afc95869914b"
       define_method(:install) do
         bin.install "agent-receipts-daemon"
         bin.install "agent-receipts"
+        bin.install "agent-receipts-hook"
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/agent-receipts/ar/releases/download/daemon%2Fv0.8.0/daemon_0.8.0_linux_arm64.tar.gz"
-      sha256 "46bc3fa82a644c4f3a4b1f720f1ecca3a7e815862770263ecb747ea4f2530702"
+      url "https://github.com/agent-receipts/ar/releases/download/daemon%2Fv0.8.1/daemon_0.8.1_linux_arm64.tar.gz"
+      sha256 "85e1b5ee52c5fab22494424439a158f384a2a2f255c33c9834cd2e6939f038cf"
       define_method(:install) do
         bin.install "agent-receipts-daemon"
         bin.install "agent-receipts"
+        bin.install "agent-receipts-hook"
       end
     end
   end
@@ -62,14 +66,23 @@ class AgentReceiptsDaemon < Formula
   def caveats
     <<~EOS
       Before starting the service for the first time, generate your signing key:
-        #{opt_bin}/agent-receipts-daemon --init
+        agent-receipts-daemon --init
 
       Then start the daemon:
         brew services start agent-receipts/tap/agent-receipts-daemon
 
-      Receipts database: ~/.local/share/agent-receipts/receipts.db
-      Signing key:       ~/.local/share/agent-receipts/signing.key
+      Receipts database: $XDG_DATA_HOME/agent-receipts/receipts.db
+                         (falls back to ~/.local/share/agent-receipts/receipts.db when $XDG_DATA_HOME is unset or relative)
+                         Override: AGENTRECEIPTS_DB
+      Signing key:       $XDG_DATA_HOME/agent-receipts/signing.key
+                         (falls back to ~/.local/share/agent-receipts/signing.key when $XDG_DATA_HOME is unset or relative)
+                         Override: AGENTRECEIPTS_KEY
       Socket (macOS):    $TMPDIR/agentreceipts/events.sock
+                         (falls back to /tmp/agentreceipts/events.sock when $TMPDIR is unset)
+                         Override: AGENTRECEIPTS_SOCKET
+      Socket (Linux):    $XDG_RUNTIME_DIR/agentreceipts/events.sock
+                         (falls back to /run/agentreceipts/events.sock when $XDG_RUNTIME_DIR is unset)
+                         Override: AGENTRECEIPTS_SOCKET
       Daemon logs:       #{var}/log/agent-receipts/daemon.log
                          (stdout + stderr, written by launchd when started via `brew services`)
     EOS
@@ -84,5 +97,6 @@ class AgentReceiptsDaemon < Formula
   test do
     system "#{bin}/agent-receipts-daemon", "--version"
     system "#{bin}/agent-receipts", "--help"
+    system "#{bin}/agent-receipts-hook"
   end
 end

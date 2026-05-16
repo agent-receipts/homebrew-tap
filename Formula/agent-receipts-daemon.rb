@@ -5,13 +5,13 @@
 class AgentReceiptsDaemon < Formula
   desc "Agent Receipts daemon and companion verify CLI"
   homepage "https://github.com/agent-receipts/ar/tree/main/daemon"
-  version "0.9.0"
+  version "0.9.1"
   license "Apache-2.0"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/agent-receipts/ar/releases/download/daemon%2Fv0.9.0/daemon_0.9.0_darwin_amd64.tar.gz"
-      sha256 "48458114126d6e192c79e8c464cdf4ed05beecbb14e1065558103e8a46c87b63"
+      url "https://github.com/agent-receipts/ar/releases/download/daemon%2Fv0.9.1/daemon_0.9.1_darwin_amd64.tar.gz"
+      sha256 "84df40d1f12f800e499b35b1f9ec1c9e026dd9a4decd040e410bd3a1056e5674"
 
       define_method(:install) do
         bin.install "agent-receipts-daemon"
@@ -19,8 +19,8 @@ class AgentReceiptsDaemon < Formula
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/agent-receipts/ar/releases/download/daemon%2Fv0.9.0/daemon_0.9.0_darwin_arm64.tar.gz"
-      sha256 "4a7c09667f0ae1c94bd55ff073f1f569ee1012c58b06c0ec51889d883beb61a1"
+      url "https://github.com/agent-receipts/ar/releases/download/daemon%2Fv0.9.1/daemon_0.9.1_darwin_arm64.tar.gz"
+      sha256 "d1a885757bd4550346f7349ec1a1ac6908cc34979f5d094167c15bfefbb65537"
 
       define_method(:install) do
         bin.install "agent-receipts-daemon"
@@ -31,16 +31,16 @@ class AgentReceiptsDaemon < Formula
 
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://github.com/agent-receipts/ar/releases/download/daemon%2Fv0.9.0/daemon_0.9.0_linux_amd64.tar.gz"
-      sha256 "05e3c2a13131268622325fc36d8dea569fef78118d765f6cf6b5c6bfcfd8535e"
+      url "https://github.com/agent-receipts/ar/releases/download/daemon%2Fv0.9.1/daemon_0.9.1_linux_amd64.tar.gz"
+      sha256 "08b32ba8a5085ee54b077f409c5778fa263adc7b3367b16bca05e940def7c578"
       define_method(:install) do
         bin.install "agent-receipts-daemon"
         bin.install "agent-receipts"
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/agent-receipts/ar/releases/download/daemon%2Fv0.9.0/daemon_0.9.0_linux_arm64.tar.gz"
-      sha256 "5f076e91b36c648938ff26b629a7ddb4f2da401e5450575cbf7aa4390e6824dc"
+      url "https://github.com/agent-receipts/ar/releases/download/daemon%2Fv0.9.1/daemon_0.9.1_linux_arm64.tar.gz"
+      sha256 "c7e8d17c57e218caa478e0ed90e4416a58fdfb226266aef117733c1f6c2a5480"
       define_method(:install) do
         bin.install "agent-receipts-daemon"
         bin.install "agent-receipts"

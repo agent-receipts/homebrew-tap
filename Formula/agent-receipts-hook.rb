@@ -44,6 +44,8 @@ class AgentReceiptsHook < Formula
     end
   end
 
+  conflicts_with "agent-receipts-hook-alpha", because: "both install the same binary"
+
   livecheck do
     url "https://github.com/agent-receipts/ar"
     strategy :github_releases

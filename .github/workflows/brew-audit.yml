@@ -39,8 +39,18 @@ jobs:
           for f in "${formulae[@]}"; do
             name=$(basename "$f" .rb)
             echo "::group::brew audit agent-receipts/tap/$name"
-            if ! brew audit --strict --online "agent-receipts/tap/$name"; then
-              status=1
+            # Alpha-track formulas are GoReleaser-generated for pre-release tags.
+            # GoReleaser emits an explicit `version` field that brew audit --strict
+            # flags as redundant with the version scanned from the URL. The remaining
+            # checks still run without --strict.
+            if [[ "$name" == *-alpha ]]; then
+              if ! brew audit --online "agent-receipts/tap/$name"; then
+                status=1
+              fi
+            else
+              if ! brew audit --strict --online "agent-receipts/tap/$name"; then
+                status=1
+              fi
             fi
             echo "::endgroup::"
           done

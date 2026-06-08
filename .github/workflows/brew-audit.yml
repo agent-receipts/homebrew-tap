@@ -30,7 +30,7 @@ jobs:
 
           # Symlink the checked-out repo into Homebrew's taps directory
           # so formulae resolve by `<owner>/<tap>/<name>` — required for
-          # --strict audits, which check tap-relative conventions.
+          # audits that check tap-relative conventions.
           taps_dir="$(brew --repo)/Library/Taps/agent-receipts"
           mkdir -p "$taps_dir"
           ln -sf "$GITHUB_WORKSPACE" "$taps_dir/homebrew-tap"
@@ -39,18 +39,12 @@ jobs:
           for f in "${formulae[@]}"; do
             name=$(basename "$f" .rb)
             echo "::group::brew audit agent-receipts/tap/$name"
-            # Alpha-track formulas are GoReleaser-generated for pre-release tags.
-            # GoReleaser emits an explicit `version` field that brew audit --strict
-            # flags as redundant with the version scanned from the URL. The remaining
-            # checks still run without --strict.
-            if [[ "$name" == *-alpha ]]; then
-              if ! brew audit --online "agent-receipts/tap/$name"; then
-                status=1
-              fi
-            else
-              if ! brew audit --strict --online "agent-receipts/tap/$name"; then
-                status=1
-              fi
+            # Do not use --strict: all formulas here are GoReleaser-generated and
+            # fail homebrew/core style cops (livecheck ordering, %r regex, bin/
+            # path syntax) that are not relevant for a third-party tap. Non-strict
+            # audit still catches URL rot, homepage 404s, missing test blocks, etc.
+            if ! brew audit --online "agent-receipts/tap/$name"; then
+              status=1
             fi
             echo "::endgroup::"
           done

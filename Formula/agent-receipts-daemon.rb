@@ -88,6 +88,8 @@ class AgentReceiptsDaemon < Formula
     EOS
   end
 
+  conflicts_with "agent-receipts-daemon-alpha", because: "both install the same binaries"
+
   livecheck do
     url "https://github.com/agent-receipts/ar"
     strategy :github_releases

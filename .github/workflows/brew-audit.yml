@@ -1,12 +1,12 @@
-name: brew audit
+name: brew fetch
 
 on:
   push:
     branches: [main]
   pull_request:
   schedule:
-    # Weekly: catches upstream issues (e.g. homepage 404, URL rot) even
-    # when no formula changes have landed.
+    # Weekly: catches URL rot and checksum drift even when no formula
+    # changes have landed.
     - cron: "0 12 * * 1"
   workflow_dispatch:
 
@@ -14,23 +14,22 @@ permissions:
   contents: read
 
 jobs:
-  audit:
+  fetch:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
 
-      - name: Audit formulae
+      - name: Fetch and verify formulae
         run: |
           shopt -s nullglob
           formulae=(Formula/*.rb)
           if [ ${#formulae[@]} -eq 0 ]; then
-            echo "No formulae to audit; skipping."
+            echo "No formulae to fetch; skipping."
             exit 0
           fi
 
           # Symlink the checked-out repo into Homebrew's taps directory
-          # so formulae resolve by `<owner>/<tap>/<name>` — required for
-          # audits that check tap-relative conventions.
+          # so formulae resolve by `<owner>/<tap>/<name>`.
           taps_dir="$(brew --repo)/Library/Taps/agent-receipts"
           mkdir -p "$taps_dir"
           ln -sf "$GITHUB_WORKSPACE" "$taps_dir/homebrew-tap"
@@ -38,12 +37,12 @@ jobs:
           status=0
           for f in "${formulae[@]}"; do
             name=$(basename "$f" .rb)
-            echo "::group::brew audit agent-receipts/tap/$name"
-            # Do not use --strict: all formulas here are GoReleaser-generated and
-            # fail homebrew/core style cops (livecheck ordering, %r regex, bin/
-            # path syntax) that are not relevant for a third-party tap. Non-strict
-            # audit still catches URL rot, homepage 404s, missing test blocks, etc.
-            if ! brew audit --online "agent-receipts/tap/$name"; then
+            echo "::group::brew fetch agent-receipts/tap/$name"
+            # Downloads the archive for the current platform and verifies its
+            # SHA256 checksum. Catches URL rot and bad checksums without running
+            # Homebrew style audits (which flag GoReleaser template output as
+            # non-compliant with homebrew/core submission standards).
+            if ! brew fetch --formula "agent-receipts/tap/$name"; then
               status=1
             fi
             echo "::endgroup::"

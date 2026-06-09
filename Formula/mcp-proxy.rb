@@ -5,21 +5,21 @@
 class McpProxy < Formula
   desc "MCP proxy with action receipts, policy engine, and intent tracking"
   homepage "https://github.com/agent-receipts/ar/tree/main/mcp-proxy"
-  version "0.13.0"
+  version "0.14.0"
   license "Apache-2.0"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/agent-receipts/ar/releases/download/mcp-proxy%2Fv0.13.0/mcp-proxy_0.13.0_darwin_amd64.tar.gz"
-      sha256 "06703a715d0fcf237630b6f75b2828f9dae0af230573bc6963a18050f8c58e90"
+      url "https://github.com/agent-receipts/ar/releases/download/mcp-proxy%2Fv0.14.0/mcp-proxy_0.14.0_darwin_amd64.tar.gz"
+      sha256 "d16cb639d952ac0237ce3aefb41b337584a3a5be2120b86311eb0b0f4261c11d"
 
       define_method(:install) do
         bin.install "mcp-proxy"
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/agent-receipts/ar/releases/download/mcp-proxy%2Fv0.13.0/mcp-proxy_0.13.0_darwin_arm64.tar.gz"
-      sha256 "4ff1f0554159cc3b478690f714b901df00a879347792ccd6d1c7b0e0369bc23c"
+      url "https://github.com/agent-receipts/ar/releases/download/mcp-proxy%2Fv0.14.0/mcp-proxy_0.14.0_darwin_arm64.tar.gz"
+      sha256 "3d6871fa79993c416a31796dde573120a6fafb42b938deb6eff4cb5d6bf52123"
 
       define_method(:install) do
         bin.install "mcp-proxy"
@@ -29,20 +29,22 @@ class McpProxy < Formula
 
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://github.com/agent-receipts/ar/releases/download/mcp-proxy%2Fv0.13.0/mcp-proxy_0.13.0_linux_amd64.tar.gz"
-      sha256 "04808ef884ec1833426a5fbeb1f4be6e1692718f0d5ebbb85661df440aae7e1e"
+      url "https://github.com/agent-receipts/ar/releases/download/mcp-proxy%2Fv0.14.0/mcp-proxy_0.14.0_linux_amd64.tar.gz"
+      sha256 "31208a4a1be7fccf7cb3af1c160c1fe792e809853de7b93423836b7f474a0cf8"
       define_method(:install) do
         bin.install "mcp-proxy"
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/agent-receipts/ar/releases/download/mcp-proxy%2Fv0.13.0/mcp-proxy_0.13.0_linux_arm64.tar.gz"
-      sha256 "a89d7c96769ed6ea7ff28ee3bca62a9451daee0657166a081365dd472e221916"
+      url "https://github.com/agent-receipts/ar/releases/download/mcp-proxy%2Fv0.14.0/mcp-proxy_0.14.0_linux_arm64.tar.gz"
+      sha256 "cab4c0715379983602fb73b144d4dbde505f63707f10521c5804e4fbdb04d6d1"
       define_method(:install) do
         bin.install "mcp-proxy"
       end
     end
   end
+
+  conflicts_with "mcp-proxy-alpha", because: "both install the same binary"
 
   livecheck do
     url "https://github.com/agent-receipts/ar"

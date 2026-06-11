@@ -5,21 +5,21 @@
 class AgentReceiptsHookAlpha < Formula
   desc "Claude Code PostToolUse hook that forwards tool-call events to agent-receipts-daemon (alpha/beta track)"
   homepage "https://github.com/agent-receipts/ar/tree/main/hook"
-  version "0.15.0-alpha.1"
+  version "0.15.0"
   license "Apache-2.0"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/agent-receipts/ar/releases/download/hook%2Fv0.15.0-alpha.1/agent-receipts-hook_0.15.0-alpha.1_darwin_amd64.tar.gz"
-      sha256 "e94918d3b723889fa0ce3e55eea2aae128c866eb2536c3b7943017941398511f"
+      url "https://github.com/agent-receipts/ar/releases/download/hook%2Fv0.15.0/agent-receipts-hook_0.15.0_darwin_amd64.tar.gz"
+      sha256 "7a0e81f5a100f7d03792a1c9092b1ff8d8cb0ab9be058f0dfd5406fa0be57d0f"
 
       define_method(:install) do
         bin.install "agent-receipts-hook"
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/agent-receipts/ar/releases/download/hook%2Fv0.15.0-alpha.1/agent-receipts-hook_0.15.0-alpha.1_darwin_arm64.tar.gz"
-      sha256 "09273f7bf84f5af6d2356df0732ce45683d07dc371a30f90dd991da05b4aebe7"
+      url "https://github.com/agent-receipts/ar/releases/download/hook%2Fv0.15.0/agent-receipts-hook_0.15.0_darwin_arm64.tar.gz"
+      sha256 "e752be2ef3d7ee434fbd1748555ef978548563092d4581d23947b5fcff978bc4"
 
       define_method(:install) do
         bin.install "agent-receipts-hook"
@@ -29,15 +29,15 @@ class AgentReceiptsHookAlpha < Formula
 
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://github.com/agent-receipts/ar/releases/download/hook%2Fv0.15.0-alpha.1/agent-receipts-hook_0.15.0-alpha.1_linux_amd64.tar.gz"
-      sha256 "7d5fd65fe259902a4e4e97f6bcfb652884345088e076dd92bef416e5237c5009"
+      url "https://github.com/agent-receipts/ar/releases/download/hook%2Fv0.15.0/agent-receipts-hook_0.15.0_linux_amd64.tar.gz"
+      sha256 "2d33f965160d53acae19218067549625a5cb51867474d4f670be7527b97b04c4"
       define_method(:install) do
         bin.install "agent-receipts-hook"
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/agent-receipts/ar/releases/download/hook%2Fv0.15.0-alpha.1/agent-receipts-hook_0.15.0-alpha.1_linux_arm64.tar.gz"
-      sha256 "b46032ad551d73773b47e6e5d5b99e2632d460c7b740be9ff0057d0a1f598b36"
+      url "https://github.com/agent-receipts/ar/releases/download/hook%2Fv0.15.0/agent-receipts-hook_0.15.0_linux_arm64.tar.gz"
+      sha256 "2e3632fa8c50890665334a1bb654dd42603c69574e5d1be2223d1dc57c4b7ab1"
       define_method(:install) do
         bin.install "agent-receipts-hook"
       end

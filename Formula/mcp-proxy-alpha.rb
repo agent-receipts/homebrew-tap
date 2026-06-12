@@ -5,23 +5,25 @@
 class McpProxyAlpha < Formula
   desc "MCP proxy with action receipts, policy engine, and intent tracking (alpha/beta track)"
   homepage "https://github.com/agent-receipts/ar/tree/main/mcp-proxy"
-  version "0.14.0"
+  version "0.15.0-alpha.2"
   license "Apache-2.0"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/agent-receipts/ar/releases/download/mcp-proxy%2Fv0.14.0/mcp-proxy_0.14.0_darwin_amd64.tar.gz"
-      sha256 "d16cb639d952ac0237ce3aefb41b337584a3a5be2120b86311eb0b0f4261c11d"
+      url "https://github.com/agent-receipts/ar/releases/download/mcp-proxy%2Fv0.15.0-alpha.2/mcp-proxy_0.15.0-alpha.2_darwin_amd64.tar.gz"
+      sha256 "a5a4daff3f8eb2184dd97d2cc2d2619859a1857127ba1124c07c96b4039c8bb4"
 
       define_method(:install) do
+        bin.install "obsigna-mcp"
         bin.install "mcp-proxy"
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/agent-receipts/ar/releases/download/mcp-proxy%2Fv0.14.0/mcp-proxy_0.14.0_darwin_arm64.tar.gz"
-      sha256 "3d6871fa79993c416a31796dde573120a6fafb42b938deb6eff4cb5d6bf52123"
+      url "https://github.com/agent-receipts/ar/releases/download/mcp-proxy%2Fv0.15.0-alpha.2/mcp-proxy_0.15.0-alpha.2_darwin_arm64.tar.gz"
+      sha256 "dad4ecac7493be6b67d0e91024455e99ab0753108dc2965acb9df4f2ef79f46c"
 
       define_method(:install) do
+        bin.install "obsigna-mcp"
         bin.install "mcp-proxy"
       end
     end
@@ -29,22 +31,37 @@ class McpProxyAlpha < Formula
 
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://github.com/agent-receipts/ar/releases/download/mcp-proxy%2Fv0.14.0/mcp-proxy_0.14.0_linux_amd64.tar.gz"
-      sha256 "31208a4a1be7fccf7cb3af1c160c1fe792e809853de7b93423836b7f474a0cf8"
+      url "https://github.com/agent-receipts/ar/releases/download/mcp-proxy%2Fv0.15.0-alpha.2/mcp-proxy_0.15.0-alpha.2_linux_amd64.tar.gz"
+      sha256 "9522cf6549cdae9624ee0695bdf37b36552833ea976d53fadc86ced37443be27"
       define_method(:install) do
+        bin.install "obsigna-mcp"
         bin.install "mcp-proxy"
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/agent-receipts/ar/releases/download/mcp-proxy%2Fv0.14.0/mcp-proxy_0.14.0_linux_arm64.tar.gz"
-      sha256 "cab4c0715379983602fb73b144d4dbde505f63707f10521c5804e4fbdb04d6d1"
+      url "https://github.com/agent-receipts/ar/releases/download/mcp-proxy%2Fv0.15.0-alpha.2/mcp-proxy_0.15.0-alpha.2_linux_arm64.tar.gz"
+      sha256 "154803af16116a33304fe2c719203ca1a858cac2d374a4d8b7c6506d5da6b9f7"
       define_method(:install) do
+        bin.install "obsigna-mcp"
         bin.install "mcp-proxy"
       end
     end
   end
 
-  conflicts_with "mcp-proxy", because: "both install the same binary"
+  conflicts_with "mcp-proxy", because: "both install the same binaries"
+
+  def caveats
+    <<~EOS
+      This is the alpha/beta track — it tracks every release including pre-releases.
+      For stable-only installs use: brew install agent-receipts/tap/mcp-proxy
+
+      The proxy binary is now obsigna-mcp (was mcp-proxy). The mcp-proxy
+      command still works as a thin deprecation shim that forwards to
+      obsigna-mcp, so existing MCP client configs keep running — but update
+      them to obsigna-mcp (or `obsigna mcp run`) when convenient; the shim
+      will be removed in a future release.
+    EOS
+  end
 
   livecheck do
     url "https://github.com/agent-receipts/ar"
@@ -53,6 +70,7 @@ class McpProxyAlpha < Formula
   end
 
   test do
+    system "#{bin}/obsigna-mcp", "--version"
     system "#{bin}/mcp-proxy", "--version"
   end
 end

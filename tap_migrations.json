@@ -1,0 +1,4 @@
+{
+  "agent-receipts-daemon": "agent-receipts/tap/obsigna-daemon",
+  "agent-receipts-daemon-alpha": "agent-receipts/tap/obsigna-daemon-alpha"
+}

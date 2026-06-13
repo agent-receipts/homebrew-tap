@@ -5,13 +5,13 @@
 class AgentReceiptsHookAlpha < Formula
   desc "Hook that forwards agent tool-call events to the agent-receipts daemon (alpha/beta track)"
   homepage "https://github.com/agent-receipts/ar/tree/main/hook"
-  version "0.18.0-alpha.1"
+  version "0.18.0"
   license "Apache-2.0"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/agent-receipts/ar/releases/download/hook%2Fv0.18.0-alpha.1/agent-receipts-hook_0.18.0-alpha.1_darwin_amd64.tar.gz"
-      sha256 "a80248d1500ade28b0ee58a239da194f88c7de1b2346c547b2d41e705f5999ca"
+      url "https://github.com/agent-receipts/ar/releases/download/hook%2Fv0.18.0/agent-receipts-hook_0.18.0_darwin_amd64.tar.gz"
+      sha256 "4e4d51f57da068bb9732faf2842021e07d250d1ec43c779bb12c589fc4eb166f"
 
       define_method(:install) do
         bin.install "obsigna-hook"
@@ -19,8 +19,8 @@ class AgentReceiptsHookAlpha < Formula
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/agent-receipts/ar/releases/download/hook%2Fv0.18.0-alpha.1/agent-receipts-hook_0.18.0-alpha.1_darwin_arm64.tar.gz"
-      sha256 "c4a862b51267b7a4a671bddc6983d7de7ede94d563a69a30ea08c49bfeb9fb50"
+      url "https://github.com/agent-receipts/ar/releases/download/hook%2Fv0.18.0/agent-receipts-hook_0.18.0_darwin_arm64.tar.gz"
+      sha256 "c276c20ff7743cd9d59bea26ada302219c19f7cb7e2ef86442cfa1066a2cdbf5"
 
       define_method(:install) do
         bin.install "obsigna-hook"
@@ -31,16 +31,16 @@ class AgentReceiptsHookAlpha < Formula
 
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://github.com/agent-receipts/ar/releases/download/hook%2Fv0.18.0-alpha.1/agent-receipts-hook_0.18.0-alpha.1_linux_amd64.tar.gz"
-      sha256 "e830d7f026c18ad212a7534c5ee8f118efa96df0962dd5d7d75d5280490b2e8c"
+      url "https://github.com/agent-receipts/ar/releases/download/hook%2Fv0.18.0/agent-receipts-hook_0.18.0_linux_amd64.tar.gz"
+      sha256 "5befb2ffa45f295e721466ae8b76232ff0600843981dd5a7878186133929b8d5"
       define_method(:install) do
         bin.install "obsigna-hook"
         bin.install "agent-receipts-hook"
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/agent-receipts/ar/releases/download/hook%2Fv0.18.0-alpha.1/agent-receipts-hook_0.18.0-alpha.1_linux_arm64.tar.gz"
-      sha256 "59fc551e924705063894fac081638e4993ff1af5dd5ee3acc4e5415aceac8bd2"
+      url "https://github.com/agent-receipts/ar/releases/download/hook%2Fv0.18.0/agent-receipts-hook_0.18.0_linux_arm64.tar.gz"
+      sha256 "da23127a6f4ea6950209cac633b416b5c663567b87ab258d6f6837042881230a"
       define_method(:install) do
         bin.install "obsigna-hook"
         bin.install "agent-receipts-hook"

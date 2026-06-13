@@ -5,23 +5,25 @@
 class Collector < Formula
   desc "Agent Receipts reference HTTP collector — append-only signed-receipt sink"
   homepage "https://github.com/agent-receipts/ar/tree/main/collector"
-  version "0.13.0"
+  version "0.14.0"
   license "Apache-2.0"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/agent-receipts/ar/releases/download/collector%2Fv0.13.0/collector_0.13.0_darwin_amd64.tar.gz"
-      sha256 "1330a9f94e3da667ff6ea680c44edfde17c19b10a7cbf577ec91180cc0d6ac8e"
+      url "https://github.com/agent-receipts/ar/releases/download/collector%2Fv0.14.0/collector_0.14.0_darwin_amd64.tar.gz"
+      sha256 "71b898dea25b7ce022ae1cc0440124c34e9f1f2368220bb9e803ac8b7c461444"
 
       define_method(:install) do
+        bin.install "obsigna-collector"
         bin.install "collector"
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/agent-receipts/ar/releases/download/collector%2Fv0.13.0/collector_0.13.0_darwin_arm64.tar.gz"
-      sha256 "eb5f91cdd0633add928264500a7ac4f808a29cd0500a5534b3ef20228a64d066"
+      url "https://github.com/agent-receipts/ar/releases/download/collector%2Fv0.14.0/collector_0.14.0_darwin_arm64.tar.gz"
+      sha256 "63744ab32958e0cc5d01fbb948d8614f876a6d92b4958d881bf3f9e7b03bb6a6"
 
       define_method(:install) do
+        bin.install "obsigna-collector"
         bin.install "collector"
       end
     end
@@ -29,19 +31,31 @@ class Collector < Formula
 
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://github.com/agent-receipts/ar/releases/download/collector%2Fv0.13.0/collector_0.13.0_linux_amd64.tar.gz"
-      sha256 "6ec745fe875c19de0405bc833c809b29e06ea57130a0a2315ad4717d71fdf916"
+      url "https://github.com/agent-receipts/ar/releases/download/collector%2Fv0.14.0/collector_0.14.0_linux_amd64.tar.gz"
+      sha256 "941b57aefe79ad03384ad91a81cccc8b3bb726635a0bcf889e01259aa97affc4"
       define_method(:install) do
+        bin.install "obsigna-collector"
         bin.install "collector"
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/agent-receipts/ar/releases/download/collector%2Fv0.13.0/collector_0.13.0_linux_arm64.tar.gz"
-      sha256 "becd1b93ffb8ee43b778517a6f35ae1e77ca56bc93ce67f7cfd280a82ce88c34"
+      url "https://github.com/agent-receipts/ar/releases/download/collector%2Fv0.14.0/collector_0.14.0_linux_arm64.tar.gz"
+      sha256 "a4266c77076ead2fcaded3f12c5fbcc4dd67faa23fe46b4f480a461779bc7ce5"
       define_method(:install) do
+        bin.install "obsigna-collector"
         bin.install "collector"
       end
     end
+  end
+
+  def caveats
+    <<~EOS
+      The collector binary is now obsigna-collector (was collector). The
+      collector command still works as a thin deprecation shim that forwards
+      to obsigna-collector, so existing installers and scripts keep running —
+      but update them to obsigna-collector (or `obsigna collector run`) when
+      convenient; the shim will be removed in a future release.
+    EOS
   end
 
   livecheck do
@@ -51,6 +65,7 @@ class Collector < Formula
   end
 
   test do
+    system "#{bin}/obsigna-collector", "--version"
     system "#{bin}/collector", "--version"
   end
 end

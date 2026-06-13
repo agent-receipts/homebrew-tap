@@ -5,49 +5,73 @@
 class Obsigna < Formula
   desc "Obsigna — Agent Receipts CLI, signing daemon, and verify tooling"
   homepage "https://github.com/agent-receipts/obsigna/tree/main/daemon"
-  version "0.24.0"
+  version "0.25.0"
   license "Apache-2.0"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/agent-receipts/obsigna/releases/download/obsigna%2Fv0.24.0/obsigna_0.24.0_darwin_amd64.tar.gz"
-      sha256 "8635745e4c77c6fc1b0e41d37c6058d27320a29e745a9660118bd41d08c946a6"
+      url "https://github.com/agent-receipts/obsigna/releases/download/obsigna%2Fv0.25.0/obsigna_0.25.0_darwin_amd64.tar.gz"
+      sha256 "c27e037a20d7b9af3944c70a34c912a1e580c84ba98e6faec54cbe5869b6f4a3"
 
       define_method(:install) do
         bin.install "obsigna-daemon"
         bin.install "obsigna"
         bin.install "agent-receipts"
+        bin.install "obsigna-mcp"
+        bin.install "mcp-proxy"
+        bin.install "obsigna-collector"
+        bin.install "collector"
+        bin.install "obsigna-hook"
+        bin.install "agent-receipts-hook"
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/agent-receipts/obsigna/releases/download/obsigna%2Fv0.24.0/obsigna_0.24.0_darwin_arm64.tar.gz"
-      sha256 "0e70a8592b10b0ed3d9f39845252ced1c1bb5333b55e63d20ddb145c5af868a5"
+      url "https://github.com/agent-receipts/obsigna/releases/download/obsigna%2Fv0.25.0/obsigna_0.25.0_darwin_arm64.tar.gz"
+      sha256 "ab811ab87040664e3d2c0fde78f739148c3feceb3d9e9d88804eb6844694cf11"
 
       define_method(:install) do
         bin.install "obsigna-daemon"
         bin.install "obsigna"
         bin.install "agent-receipts"
+        bin.install "obsigna-mcp"
+        bin.install "mcp-proxy"
+        bin.install "obsigna-collector"
+        bin.install "collector"
+        bin.install "obsigna-hook"
+        bin.install "agent-receipts-hook"
       end
     end
   end
 
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://github.com/agent-receipts/obsigna/releases/download/obsigna%2Fv0.24.0/obsigna_0.24.0_linux_amd64.tar.gz"
-      sha256 "e5bf0114d330e175c13fee7be3eb49b818eb705cdc5c73909a332799a70cbb97"
+      url "https://github.com/agent-receipts/obsigna/releases/download/obsigna%2Fv0.25.0/obsigna_0.25.0_linux_amd64.tar.gz"
+      sha256 "eec4e92943825f12ff3922e3b5013db582cf1a015ac1533b2423f6ed5ae7e704"
       define_method(:install) do
         bin.install "obsigna-daemon"
         bin.install "obsigna"
         bin.install "agent-receipts"
+        bin.install "obsigna-mcp"
+        bin.install "mcp-proxy"
+        bin.install "obsigna-collector"
+        bin.install "collector"
+        bin.install "obsigna-hook"
+        bin.install "agent-receipts-hook"
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/agent-receipts/obsigna/releases/download/obsigna%2Fv0.24.0/obsigna_0.24.0_linux_arm64.tar.gz"
-      sha256 "4811ddb239aabc3211968b16b6470dc728d3d70c440f7110272faeb9af7d26e7"
+      url "https://github.com/agent-receipts/obsigna/releases/download/obsigna%2Fv0.25.0/obsigna_0.25.0_linux_arm64.tar.gz"
+      sha256 "b0dae85d439a36ca79ee267e5afd49c4f99905bca897ed1fa637621b8fa5b0bd"
       define_method(:install) do
         bin.install "obsigna-daemon"
         bin.install "obsigna"
         bin.install "agent-receipts"
+        bin.install "obsigna-mcp"
+        bin.install "mcp-proxy"
+        bin.install "obsigna-collector"
+        bin.install "collector"
+        bin.install "obsigna-hook"
+        bin.install "agent-receipts-hook"
       end
     end
   end
@@ -65,15 +89,23 @@ class Obsigna < Formula
 
   def caveats
     <<~EOS
+      This formula now installs the whole Obsigna toolset (ADR-0034): the
+      obsigna CLI, the obsigna-daemon signer, obsigna-mcp (the MCP proxy,
+      run via `obsigna mcp run`), obsigna-collector (the receipt hub, run via
+      `obsigna collector run`), and obsigna-hook (the per-tool-call emission
+      callback). Each ships alongside its deprecation shim (agent-receipts,
+      mcp-proxy, collector, agent-receipts-hook), which forwards to the new
+      binary — update references when convenient; the shims will be removed
+      in a future release. The retired mcp-proxy, collector, and
+      agent-receipts-hook formulae are migrated to this one via the tap's
+      tap_migrations.json, so `brew update && brew upgrade` moves you with no
+      manual step.
+
       The daemon binary is now obsigna-daemon (was agent-receipts-daemon).
       If you reference the old binary name in any install script, systemd unit,
       launchd plist, or `brew services` wrapper, update it to obsigna-daemon and
       restart the service after upgrading:
         brew services restart agent-receipts/tap/obsigna
-
-      agent-receipts-hook is now a separate formula. If you previously installed
-      it via this formula, run:
-        brew install agent-receipts/tap/agent-receipts-hook
 
       Before starting the service for the first time, generate your signing key:
         obsigna-daemon --init
@@ -110,5 +142,11 @@ class Obsigna < Formula
     system "#{bin}/obsigna-daemon", "--version"
     system "#{bin}/obsigna", "--help"
     system "#{bin}/agent-receipts", "--help"
+    system "#{bin}/obsigna-mcp", "--version"
+    system "#{bin}/mcp-proxy", "--version"
+    system "#{bin}/obsigna-collector", "--version"
+    system "#{bin}/collector", "--version"
+    system "#{bin}/obsigna-hook", "--version"
+    system "#{bin}/agent-receipts-hook", "--version"
   end
 end

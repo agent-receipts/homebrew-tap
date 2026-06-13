@@ -1,4 +1,11 @@
 {
-  "agent-receipts-daemon": "agent-receipts/tap/obsigna-daemon",
-  "agent-receipts-daemon-alpha": "agent-receipts/tap/obsigna-daemon-alpha"
+  "agent-receipts-daemon": "agent-receipts/tap/obsigna",
+  "agent-receipts-daemon-alpha": "agent-receipts/tap/obsigna-alpha",
+  "obsigna-daemon": "agent-receipts/tap/obsigna",
+  "obsigna-daemon-alpha": "agent-receipts/tap/obsigna-alpha",
+  "mcp-proxy": "agent-receipts/tap/obsigna",
+  "mcp-proxy-alpha": "agent-receipts/tap/obsigna-alpha",
+  "collector": "agent-receipts/tap/obsigna",
+  "agent-receipts-hook": "agent-receipts/tap/obsigna",
+  "agent-receipts-hook-alpha": "agent-receipts/tap/obsigna-alpha"
 }

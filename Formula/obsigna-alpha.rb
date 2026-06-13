@@ -5,13 +5,13 @@
 class ObsignaAlpha < Formula
   desc "Obsigna — Agent Receipts CLI, signing daemon, and verify tooling (alpha/beta track)"
   homepage "https://github.com/agent-receipts/obsigna/tree/main/daemon"
-  version "0.25.0-alpha.1"
+  version "0.25.0"
   license "Apache-2.0"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/agent-receipts/obsigna/releases/download/obsigna%2Fv0.25.0-alpha.1/obsigna_0.25.0-alpha.1_darwin_amd64.tar.gz"
-      sha256 "2c404e39c7eaea408e9a0a862922632a06cb27fe15c94cc6caec12a32ae6d835"
+      url "https://github.com/agent-receipts/obsigna/releases/download/obsigna%2Fv0.25.0/obsigna_0.25.0_darwin_amd64.tar.gz"
+      sha256 "c27e037a20d7b9af3944c70a34c912a1e580c84ba98e6faec54cbe5869b6f4a3"
 
       define_method(:install) do
         bin.install "obsigna-daemon"
@@ -26,8 +26,8 @@ class ObsignaAlpha < Formula
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/agent-receipts/obsigna/releases/download/obsigna%2Fv0.25.0-alpha.1/obsigna_0.25.0-alpha.1_darwin_arm64.tar.gz"
-      sha256 "8cfbf8d82244da259a2250740cffbecfb9ed0a920ba60e1fbad6994a293e5eb6"
+      url "https://github.com/agent-receipts/obsigna/releases/download/obsigna%2Fv0.25.0/obsigna_0.25.0_darwin_arm64.tar.gz"
+      sha256 "ab811ab87040664e3d2c0fde78f739148c3feceb3d9e9d88804eb6844694cf11"
 
       define_method(:install) do
         bin.install "obsigna-daemon"
@@ -45,8 +45,8 @@ class ObsignaAlpha < Formula
 
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://github.com/agent-receipts/obsigna/releases/download/obsigna%2Fv0.25.0-alpha.1/obsigna_0.25.0-alpha.1_linux_amd64.tar.gz"
-      sha256 "41bf1ad7ab42c5b11a94b0654034c0453b328c0b3ff6531917d890e97e347a1c"
+      url "https://github.com/agent-receipts/obsigna/releases/download/obsigna%2Fv0.25.0/obsigna_0.25.0_linux_amd64.tar.gz"
+      sha256 "eec4e92943825f12ff3922e3b5013db582cf1a015ac1533b2423f6ed5ae7e704"
       define_method(:install) do
         bin.install "obsigna-daemon"
         bin.install "obsigna"
@@ -60,8 +60,8 @@ class ObsignaAlpha < Formula
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/agent-receipts/obsigna/releases/download/obsigna%2Fv0.25.0-alpha.1/obsigna_0.25.0-alpha.1_linux_arm64.tar.gz"
-      sha256 "fcfaab9a7f1c5f6946084681de2f771eefc2447988039dd3ed3e597cf17c0358"
+      url "https://github.com/agent-receipts/obsigna/releases/download/obsigna%2Fv0.25.0/obsigna_0.25.0_linux_arm64.tar.gz"
+      sha256 "b0dae85d439a36ca79ee267e5afd49c4f99905bca897ed1fa637621b8fa5b0bd"
       define_method(:install) do
         bin.install "obsigna-daemon"
         bin.install "obsigna"

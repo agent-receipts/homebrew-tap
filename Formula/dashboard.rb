@@ -5,21 +5,21 @@
 class Dashboard < Formula
   desc "Local web UI for browsing Agent Receipts SQLite databases"
   homepage "https://github.com/agent-receipts/dashboard"
-  version "0.8.0"
+  version "0.9.0"
   license "Apache-2.0"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/agent-receipts/dashboard/releases/download/v0.8.0/dashboard_0.8.0_darwin_amd64.tar.gz"
-      sha256 "d247d1bf54181369595e1ed19bc6c9c697526f9f4d651b4dd01d11a8bcceb1bd"
+      url "https://github.com/agent-receipts/dashboard/releases/download/v0.9.0/dashboard_0.9.0_darwin_amd64.tar.gz"
+      sha256 "09703b06f0c70701f366103eff1f8d031e547065b5900460af08361982b54fc3"
 
       define_method(:install) do
         bin.install "dashboard"
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/agent-receipts/dashboard/releases/download/v0.8.0/dashboard_0.8.0_darwin_arm64.tar.gz"
-      sha256 "ba4a0d0242962c53b6f744aaca2db8ff95463ae5a91a922037e52dc3c5f8d877"
+      url "https://github.com/agent-receipts/dashboard/releases/download/v0.9.0/dashboard_0.9.0_darwin_arm64.tar.gz"
+      sha256 "dd9a23dcbd416d5a2f9fd5abb7c8cba9c31138c4d89a1a39d5fc7f382647831e"
 
       define_method(:install) do
         bin.install "dashboard"
@@ -29,15 +29,15 @@ class Dashboard < Formula
 
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://github.com/agent-receipts/dashboard/releases/download/v0.8.0/dashboard_0.8.0_linux_amd64.tar.gz"
-      sha256 "8d54f27185f12ea9d8145861aeaa04b86b7c8d03ecea50f7a26c3ff933f51cee"
+      url "https://github.com/agent-receipts/dashboard/releases/download/v0.9.0/dashboard_0.9.0_linux_amd64.tar.gz"
+      sha256 "e3014b3e12d8ad4d44a05d9157a29220d0125bd1b690c7f50806be90cf2dc677"
       define_method(:install) do
         bin.install "dashboard"
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/agent-receipts/dashboard/releases/download/v0.8.0/dashboard_0.8.0_linux_arm64.tar.gz"
-      sha256 "34f63bed6ecead902c7076d86293733004586af6ae92eb526c3d2a909b76995c"
+      url "https://github.com/agent-receipts/dashboard/releases/download/v0.9.0/dashboard_0.9.0_linux_arm64.tar.gz"
+      sha256 "b03f86b0935f4cf804f05a60f0615e4dbb1055b1d306b7a713697a23955f03f9"
       define_method(:install) do
         bin.install "dashboard"
       end
